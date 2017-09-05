@@ -16,9 +16,12 @@
         /* Allow communication with network to get content */
         "--share=network"
     ],
+    "cleanup": ["/include", "*.la", "/lib/pkgconfig", "/share/gtk-doc", "/share/pkgconfig"],
     "modules": [
     {
         "name": "libgsf",
+        "config-opts": ["--disable-static"],
+        "cleanup": ["/bin"],
         "sources": [
             {
                 "type": "archive",
@@ -29,6 +32,7 @@
     },
     {
         "name": "gconf",
+        "cleanup": ["/bin", "/share/aclocal"],
         "config-opts": [ "--disable-static", "--disable-gtk-doc", "--disable-orbit",
                             "--disable-introspection" ],
         "sources": [
@@ -41,6 +45,7 @@
     },
     {
         "name": "biblesync",
+        "config-opts": ["-DBUILD_SHARED_LIBS=ON"],
         "buildsystem": "cmake",
             "sources": [
                 {
@@ -52,6 +57,7 @@
     },
     {
         "name": "sword",
+        "config-opts": ["--disable-static"],
         "sources": [
                 {
                     "type": "git",
@@ -62,6 +68,8 @@
     },
     {
         "name": "rarian",
+        "config-opts": ["--disable-static"],
+        "cleanup": ["/bin"],
         "rm-configure": true,
         "sources": [
                 {
@@ -71,16 +79,17 @@
                 },
                 {
                     "type": "script",
-                    "path": "autogen.sh",
+                    "dest-filename": "autogen.sh",
                     "commands": [
                         "cp -p /usr/share/automake-*/config.{sub,guess} .",
                         "autoconf -f -B build/autoconf_prepend-include"
-                ]
+                    ]
                 }
             ]
     },
     {
         "name": "gnome-doc-utils",
+        "cleanup": ["*"],
         "rm-configure": true,
         "sources": [
                 {
@@ -90,16 +99,17 @@
                 },
                 {
                     "type": "script",
-                    "path": "autogen.sh",
+                    "dest-filename": "autogen.sh",
                     "commands": [
                         "cp -p /usr/share/automake-*/config.{sub,guess} .",
                         "autoconf -f -B build/autoconf_prepend-include"
-                ]
+                    ]
                 }
             ]
     },
     {
         "name": "libgtkhtml4",
+        "cleanup": ["/bin"],
         "sources": [
                 {
                     "type": "archive",
