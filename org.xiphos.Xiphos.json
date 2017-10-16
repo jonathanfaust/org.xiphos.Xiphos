@@ -62,7 +62,7 @@
                 {
                     "type": "git",
                     "url": "https://github.com/bibletime/crosswire-sword-mirror.git",
-                    "commit": "311b60d114246dbe01ce82d1285ce3c2d98a6f4e"
+                    "commit": "985e25b8585c4ac87fce06b382c4b3f3eaa22dd1"
                 }
             ]
     },
@@ -129,8 +129,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/crosswire/xiphos/releases/download/4.0.6a/xiphos-4.0.6a-20170820.tar.gz",
-                    "sha256": "f5d8464974828dd4f1cf27269ed00f64739ad4afa7c0d853c55b7713e25eb31d"
+                    "url": "https://github.com/crosswire/xiphos/archive/4.0.7.tar.gz",
+                    "sha256": "250eb7424e77c140f19bf6f38693ec40f04bb5cee8b6d5c3e25fea1a1bc2b028"
                 }
             ]
         }
