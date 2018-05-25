@@ -1,7 +1,7 @@
 {
     "id": "org.xiphos.Xiphos",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "3.24",
+    "runtime-version": "3.28",
     "sdk": "org.gnome.Sdk",
     "command": "xiphos",
     "rename-desktop-file": "xiphos.desktop",
@@ -11,10 +11,10 @@
         /* X11 + XShm access */
         "--share=ipc", "--socket=x11",
         "--socket=wayland",
-        /* We need to access and store files */
-        "--filesystem=home",
         /* Allow communication with network to get content */
-        "--share=network"
+        "--share=network",
+        "--persist=.sword",
+        "--talk-name=org.gnome.GConf"
     ],
     "cleanup": ["/include", "*.la", "/lib/pkgconfig", "/share/gtk-doc", "/share/pkgconfig"],
     "modules": [
@@ -25,8 +25,8 @@
         "sources": [
             {
                 "type": "archive",
-                "url": "https://ftp.gnome.org/pub/gnome/sources/libgsf/1.14/libgsf-1.14.41.tar.xz",
-                "sha256": "150b98586a1021d5c49b3d4d065d0aa3e3674ae31db131af5372499d2d3f08d3"
+                "url": "https://ftp.gnome.org/pub/gnome/sources/libgsf/1.14/libgsf-1.14.43.tar.xz",
+                "sha256": "12944e3d6d9a6e4071e89dbf58348e1e93544f5f9266dd1a107a28d8001cee16"
             }
         ]
     },
@@ -45,26 +45,28 @@
     },
     {
         "name": "biblesync",
-        "config-opts": ["-DBUILD_SHARED_LIBS=ON"],
-        "buildsystem": "cmake",
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://github.com/karlkleinpaste/biblesync/releases/download/1.1.2/biblesync-1.1.2.tar.gz",
-                    "sha256": "886e1ac165b8900254c00a182fa34e3680ef3aa25051418470f15ea09ac02005"
-                }
-            ]
+        "buildsystem": "cmake-ninja",
+        "config-opts": [
+            "-DBUILD_SHARED_LIBS=ON"
+        ],
+        "sources": [
+            {
+                "type": "archive",
+                "url": "https://github.com/karlkleinpaste/biblesync/releases/download/1.2.0/biblesync-1.2.0.tar.gz",
+                "sha256": "3c94f0de9e85a3564fbea7c36acfe175462d424eefbbad929cb3bc520e6a229f"
+            }
+        ]
     },
     {
         "name": "sword",
         "config-opts": ["--disable-static"],
         "sources": [
-                {
-                    "type": "git",
-                    "url": "https://github.com/bibletime/crosswire-sword-mirror.git",
-                    "commit": "985e25b8585c4ac87fce06b382c4b3f3eaa22dd1"
-                }
-            ]
+            {
+                "type": "archive",
+                "url": "http://crosswire.org/ftpmirror/pub/sword/source/v1.8/sword-1.8.1.tar.gz",
+                "sha256": "ce9aa8f721a737f406115d35ff438bd07c829fce1605f0d6dcdabc4318bc5e93"
+            }
+        ]
     },
     {
         "name": "rarian",
@@ -72,40 +74,40 @@
         "cleanup": ["/bin"],
         "rm-configure": true,
         "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://rarian.freedesktop.org/Releases/rarian-0.8.1.tar.bz2",
-                    "sha256": "aafe886d46e467eb3414e91fa9e42955bd4b618c3e19c42c773026b205a84577"
-                },
-                {
-                    "type": "script",
-                    "dest-filename": "autogen.sh",
-                    "commands": [
-                        "cp -p /usr/share/automake-*/config.{sub,guess} .",
-                        "autoconf -f -B build/autoconf_prepend-include"
-                    ]
-                }
-            ]
+            {
+                "type": "archive",
+                "url": "https://rarian.freedesktop.org/Releases/rarian-0.8.1.tar.bz2",
+                "sha256": "aafe886d46e467eb3414e91fa9e42955bd4b618c3e19c42c773026b205a84577"
+            },
+            {
+                "type": "script",
+                "dest-filename": "autogen.sh",
+                "commands": [
+                    "cp -p /usr/share/automake-*/config.{sub,guess} .",
+                    "autoconf -f -B build/autoconf_prepend-include"
+                ]
+            }
+        ]
     },
     {
         "name": "gnome-doc-utils",
         "cleanup": ["*"],
         "rm-configure": true,
         "sources": [
-                {
-                    "type": "archive",
-                    "url": "http://ftp.gnome.org/pub/GNOME/sources/gnome-doc-utils/0.20/gnome-doc-utils-0.20.10.tar.xz",
-                    "sha256": "cb0639ffa9550b6ddf3b62f3b1add92fb92ab4690d351f2353cffe668be8c4a6"
-                },
-                {
-                    "type": "script",
-                    "dest-filename": "autogen.sh",
-                    "commands": [
-                        "cp -p /usr/share/automake-*/config.{sub,guess} .",
-                        "autoconf -f -B build/autoconf_prepend-include"
-                    ]
-                }
-            ]
+            {
+                "type": "archive",
+                "url": "http://ftp.gnome.org/pub/GNOME/sources/gnome-doc-utils/0.20/gnome-doc-utils-0.20.10.tar.xz",
+                "sha256": "cb0639ffa9550b6ddf3b62f3b1add92fb92ab4690d351f2353cffe668be8c4a6"
+            },
+            {
+                "type": "script",
+                "dest-filename": "autogen.sh",
+                "commands": [
+                    "cp -p /usr/share/automake-*/config.{sub,guess} .",
+                    "autoconf -f -B build/autoconf_prepend-include"
+                ]
+            }
+        ]
     },
     {
         "name": "libgtkhtml4",
@@ -126,13 +128,13 @@
             "./waf build",
             "./waf install"
         ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://github.com/crosswire/xiphos/archive/4.0.7.tar.gz",
-                    "sha256": "250eb7424e77c140f19bf6f38693ec40f04bb5cee8b6d5c3e25fea1a1bc2b028"
-                }
-            ]
+        "sources": [
+            {
+                "type": "archive",
+                "url": "https://github.com/crosswire/xiphos/releases/download/4.1.0/xiphos-4.1.0.tar.gz",
+                "sha256": "52e2f415339b6ccef7049f5812707c617b4dbdb6ba40bf0f5a5210e04f75f849"
+            }
+        ]
         }
     ]
 }
