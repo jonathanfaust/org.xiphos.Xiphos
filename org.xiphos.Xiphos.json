@@ -1,7 +1,7 @@
 {
     "id": "org.xiphos.Xiphos",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "3.28",
+    "runtime-version": "3.34",
     "sdk": "org.gnome.Sdk",
     "command": "xiphos",
     "rename-desktop-file": "xiphos.desktop",
@@ -18,6 +18,22 @@
     ],
     "cleanup": ["/include", "*.la", "/lib/pkgconfig", "/share/gtk-doc", "/share/pkgconfig"],
     "modules": [
+    "shared-modules/intltool/intltool-0.51.json",
+    "shared-modules/dbus-glib/dbus-glib-0.110.json",
+    "shared-modules/python2.7/python-2.7.json",
+    {
+        "name": "python2-libxml2",
+        "config-opts": [
+            "--with-python=python2"
+        ],
+        "sources": [
+            {
+                "type": "archive",
+                "url": "ftp://xmlsoft.org/libxml2/libxml2-2.9.9.tar.gz",
+                "sha256": "94fb70890143e3c6549f265cee93ec064c80a84c42ad0f23e85ee1fd6540a871"
+            }
+        ]
+    },
     {
         "name": "libgsf",
         "config-opts": ["--disable-static"],
@@ -118,7 +134,19 @@
                     "url": "http://ftp.gnome.org/pub/GNOME/sources/gtkhtml/4.10/gtkhtml-4.10.0.tar.xz",
                     "sha256": "ca3b6424fb2c7ac5d9cb8fdafb69318fa2e825c9cf6ed17d1e38d9b29e5606c3"
                 }
-            ]
+            ],
+        "modules": [
+            {
+                "name": "enchant",
+                "sources": [
+                    {
+                        "type": "archive",
+                        "url": "https://github.com/AbiWord/enchant/releases/download/enchant-1-6-1/enchant-1.6.1.tar.gz",
+                        "sha256": "bef0d9c0fef2e4e8746956b68e4d6c6641f6b85bd2908d91731efb68eba9e3f5"
+                    }
+                ]
+            }
+        ]
     },
     {
         "name": "xiphos",
