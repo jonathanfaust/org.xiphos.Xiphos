@@ -16,7 +16,7 @@
         "--persist=.sword",
         "--talk-name=org.gnome.GConf"
     ],
-    "cleanup": ["/include", "*.la", "/lib/pkgconfig", "/share/gtk-doc", "/share/pkgconfig"],
+    "cleanup": ["/include", "*.a", "*.la", "/lib/pkgconfig", "/share/gtk-doc", "/share/pkgconfig"],
     "modules": [
     "shared-modules/intltool/intltool-0.51.json",
     "shared-modules/dbus-glib/dbus-glib-0.110.json",
